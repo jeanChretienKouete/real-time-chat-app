@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "real time chat application"
+version = "0.1.0"
+description = ""
+authors = ["jeanChretienKouete <jeanchretienkouete@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.0.2"
+python-dotenv = "^1.0.1"
+flask-login = "^0.6.3"
+flask-bcrypt = "^1.0.1"
+flask-sqlalchemy = "^3.1.1"
+mysqlclient = "^2.2.4"
+flask-migrate = "^4.0.5"
+wtforms = "^3.1.2"
+flask-socketio = "^5.3.6"
+pytest = "^8.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

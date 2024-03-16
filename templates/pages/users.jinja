@@ -1,0 +1,53 @@
+{% extends "layouts/base.jinja" %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<section class="users">
+    <header>
+        <div class="content">
+            <img src="{{ url_for('static',filename='images/profile.jpg') }}" alt="">
+            <div class="details">
+                <span>
+                    {{current_user.username}}
+                </span>
+                <p>
+                    Online
+                </p>
+            </div>
+        </div>
+        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    </header>
+    <div class="search">
+        <span class="text">Select an user to start chat</span>
+        <input type="text" placeholder="Enter name to search...">
+        <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="users-list">
+        {% for user,status in users %}
+        <a href="{{ url_for('chat',user=user.id) }}">
+            <div class="content">
+                <input type="hidden" class="user_id" name="id" value="{{ user.id }}">
+                <img src="{{ url_for('static',filename='images/profile.jpg') }}" alt="">
+                <div class="details">
+                    <span>{{ user.username }}</span>
+                    <p>{{ user.messages}}</p>
+                </div>
+            </div>
+            <div class="status-dot {{ status }}"><i class="fas fa-circle"></i></div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script>
+    let usersL = [];
+    {%for user, _ in users %}
+    usersL.push("{{ user.username }}");
+    {% endfor %}
+    console.log(usersL)
+</script>
+<script src="{{ url_for('static', filename='js/users.js') }}" data-users="{{usersL}}"></script>
+{% endblock %}

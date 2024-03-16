@@ -1,0 +1,81 @@
+{% extends "layouts/base.jinja" %}
+
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+<section class="chat-area">
+    <header>
+        <a href="{{ url_for('users') }}" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+        <img src="{{ url_for('static',filename='images/profile.jpg') }}" alt="">
+        <div class="details">
+            <span>
+                {{user.username}}
+            </span>
+            <p>
+                {{status}}
+            </p>
+        </div>
+    </header>
+    <div class="chat-box">
+        {% for message,incomming in messages %}
+        {% if incomming=="incomming" %}
+        <!-- Incoming message -->
+        <div class="chat incoming">
+            <img src="{{ url_for('static',filename='images/profile.jpg') }}" alt="">
+            <div class="details">
+                <p>
+                    {{ message.content }}
+                </p>
+            </div>
+        </div>
+        {% else %}
+        <!-- Outgoing message -->
+        <div class="chat outgoing">
+            <div class="details">
+                <p>
+                    {{ message.content }}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {# <!-- Incoming message -->
+        <div class="chat incoming">
+            <img src="{{ url_for('static',filename='images/profile.jpg') }}" alt="">
+            <div class="details">
+                <p>
+                    You ?
+                </p>
+            </div>
+        </div>
+        <!-- Outgoing message -->
+        <div class="chat outgoing">
+            <div class="details">
+                <p>
+                    I'm great
+                </p>
+            </div>
+        </div>
+        <!-- Outgoing message -->
+        <div class="chat outgoing">
+            <div class="details">
+                <p>
+                    Thanks !!!
+                </p>
+            </div>
+        </div> #}
+
+    </div>
+    <form action="#" class="typing-area">
+        <input type="text" class="incoming_id" name="incoming_id" value="{{ user.id }}" hidden>
+        <input type="text" class="my_id" name="my_id" value="{{ current_user.id }}" hidden>
+        <input type="text" name="message" class="input-field" placeholder="Type a message here..." autocomplete="off">
+        <button><i class="fab fa-telegram-plane"></i></button>
+    </form>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}
