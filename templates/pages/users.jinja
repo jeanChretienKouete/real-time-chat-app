@@ -16,7 +16,7 @@
                 </p>
             </div>
         </div>
-        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+        <a href="{{ url_for('user.logout') }}" class="logout">Logout</a>
     </header>
     <div class="search">
         <span class="text">Select an user to start chat</span>
@@ -25,7 +25,7 @@
     </div>
     <div class="users-list">
         {% for user,status in users %}
-        <a href="{{ url_for('chat',user=user.id) }}">
+        <a href="{{ url_for('chat.chat',user=user.id) }}">
             <div class="content">
                 <input type="hidden" class="user_id" name="id" value="{{ user.id }}">
                 <img src="{{ url_for('static',filename='images/profile.jpg') }}" alt="">
