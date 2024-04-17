@@ -3,4 +3,5 @@
 poetry.lock
 __pycache__
 migrations
+instance
 templates/index.html

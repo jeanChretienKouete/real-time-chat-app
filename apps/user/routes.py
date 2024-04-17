@@ -36,7 +36,6 @@ def register() -> Any:
             db.session.commit()
             login_user(user)
             socketio.emit("login", data=user.json())
-            print("Hello world Route")
             return jsonify({"message": "Account created successfully"}), 200
 
     else:
@@ -67,4 +66,4 @@ def login() -> None:
 def logout() -> None:
     socketio.emit("logout", data=current_user.json())
     logout_user()
-    return redirect(url_for("signin"))
+    return redirect(url_for("user.signin"))

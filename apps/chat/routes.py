@@ -56,4 +56,5 @@ def message() -> None:
 
 @app.post("/search")
 @login_required
-def search(): ...
+def search():
+    ...

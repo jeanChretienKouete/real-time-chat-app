@@ -18,10 +18,10 @@ class User(db.Model, UserMixin):
     def __repr__(self) -> str:
         return super().__repr__()
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.id is other.id
 
-    def json(self):
+    def json(self) -> dict:
         return {
             "id": self.id,
             "username": self.username,
