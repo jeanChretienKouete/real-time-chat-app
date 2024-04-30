@@ -30,7 +30,7 @@ def users() -> None:
 
 @app.get("/chat/<int:user>")
 @login_required
-def chat(user: int) -> None:
+def chat(user: int):
     user = User.query.filter_by(id=user).first()
     messages = Message.get_messages(user)
     print(messages)
@@ -41,10 +41,10 @@ def chat(user: int) -> None:
 
 @app.post("/chat")
 @login_required
-def message() -> None:
+def message():
     message = Message(
         sender_id=current_user.id,
-        receiver_id=int(request.form.get("incoming_id")),
+        receiver_id=int(str(request.form.get("incoming_id"))),
         content=request.form.get("message"),
         date=datetime.datetime.now(),
     )

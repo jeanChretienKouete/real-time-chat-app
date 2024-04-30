@@ -44,6 +44,10 @@ class TestUser(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Your are logged in succesfully", response.data)
 
+    def test_users_list_without_login(self) -> None:
+        response = self.client.get("users")
+        self.assertEqual(response.status_code, 401)
+
     @patch("apps.user.routes.login_required", return_value=lambda f: f)
     @patch("apps.user.routes.logout_user")
     @patch("apps.user.routes.redirect")

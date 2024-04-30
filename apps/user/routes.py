@@ -1,6 +1,13 @@
 from typing import Any
 
-from flask import Blueprint, jsonify, redirect, render_template, request, url_for
+from flask import (
+    Blueprint,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_login import current_user, login_required, login_user, logout_user
 
 from forms.login import LoginForm
@@ -17,18 +24,18 @@ def load_user(user_id) -> Any | None:
 
 
 @app.get("/")
-def signup() -> Any:
+def signup():
     return render_template("pages/signup.jinja")
 
 
 @app.post("/")
-def register() -> Any:
+def register():
     if (form := RegistrationForm(request.form)) and form.validate():
-        if User.email_exist(form.data.get("email")):
+        if User.email_exist(str(form.data.get("email"))):
             return jsonify({"message": "Email already used"}), 400
 
         if user := User(
-            username=form.data.get("fname") + " " + form.data.get("lname"),
+            username=str(form.data.get("fname")) + " " + str(form.data.get("lname")),
             email=form.data.get("email"),
             password=bcrypt.generate_password_hash(form.data.get("password")),
         ):
@@ -49,7 +56,7 @@ def signin():
 
 
 @app.post("/login")
-def login() -> None:
+def login():
     if (form := LoginForm(request.form)) and form.validate():
         user = User.query.filter_by(email=form.data.get("email")).first()
         if user and bcrypt.check_password_hash(
@@ -63,7 +70,7 @@ def login() -> None:
 
 @app.get("/logout")
 @login_required
-def logout() -> None:
+def logout():
     socketio.emit("logout", data=current_user.json())
     logout_user()
     return redirect(url_for("user.signin"))
